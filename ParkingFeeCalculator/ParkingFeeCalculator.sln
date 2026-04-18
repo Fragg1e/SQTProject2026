@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36603.0 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingFeeCalculator", "ParkingFeeCalculator.csproj", "{39923D00-5522-4292-A08E-A5975289B33D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{39923D00-5522-4292-A08E-A5975289B33D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39923D00-5522-4292-A08E-A5975289B33D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39923D00-5522-4292-A08E-A5975289B33D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39923D00-5522-4292-A08E-A5975289B33D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8F42EC7A-C153-49E0-832C-B9859B691934}
+	EndGlobalSection
+EndGlobal
