@@ -1,0 +1,65 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Parking Fee Calculator";
+}
+
+<section class="hero">
+    <div class="hero__copy">
+        <p class="eyebrow">Software Quality + Testing</p>
+        <h1>Parking Fee Calculator</h1>
+        <p class="lede">
+            Enter a vehicle type and parking duration to calculate the total parking charge.
+            Vehicle type is case-insensitive and supports <strong>standard</strong> and
+            <strong>electric</strong>.
+        </p>
+    </div>
+
+    <div class="calculator-card">
+        <form method="post" class="calculator-form">
+            <div class="form-row">
+                <label asp-for="Input.HoursParked"></label>
+                <input asp-for="Input.HoursParked" id="hoursInput" class="form-control" />
+                <span asp-validation-for="Input.HoursParked" class="text-danger"></span>
+            </div>
+
+            <div class="form-row">
+                <label asp-for="Input.VehicleType"></label>
+                <input asp-for="Input.VehicleType" id="vehicleTypeInput" class="form-control" placeholder="standard or electric" />
+                <span asp-validation-for="Input.VehicleType" class="text-danger"></span>
+            </div>
+
+            <button type="submit" id="calculateButton" class="calculate-button">Calculate Fee</button>
+        </form>
+
+        @if (Model.HasCalculated)
+        {
+            <div class="result-panel" id="resultPanel">
+                <p class="result-label">Calculated Fee</p>
+                <p class="result-value" id="resultValue">@Model.ResultText</p>
+            </div>
+        }
+    </div>
+</section>
+
+<section class="rules-grid">
+    <article class="rule-card">
+        <h2>Standard Vehicle</h2>
+        <p>1-3 hours: EUR4 per hour</p>
+        <p>4+ hours: EUR3 per hour</p>
+    </article>
+    <article class="rule-card">
+        <h2>Electric Vehicle</h2>
+        <p>1-5 hours: EUR3 per hour</p>
+        <p>6+ hours: EUR2 per hour</p>
+    </article>
+    <article class="rule-card">
+        <h2>Discount Rule</h2>
+        <p>10+ hours receives the configured discount multiplier.</p>
+        <p>Invalid hours or invalid vehicle types return EUR0.00.</p>
+    </article>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

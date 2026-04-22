@@ -1,0 +1,44 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  buildConfiguration: 'Debug'
+
+steps:
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '8.0.x'
+
+- script: dotnet restore SQTProject2026Classic.sln
+  displayName: 'Restore solution'
+
+- script: dotnet build SQTProject2026Classic.sln --configuration $(buildConfiguration) --no-restore
+  displayName: 'Build solution'
+
+- script: dotnet test ParkingFeeCalculator.Tests/ParkingFeeCalculator.Tests.csproj --configuration $(buildConfiguration) --no-build --logger trx
+  displayName: 'Run unit tests'
+
+- powershell: |
+    $project = "$(Build.SourcesDirectory)\ParkingFeeCalculator.Web"
+    $process = Start-Process dotnet -ArgumentList @('run','--project',"$project",'--no-launch-profile','--','--urls','http://127.0.0.1:5099') -WorkingDirectory $project -PassThru
+    try {
+      Start-Sleep -Seconds 10
+      dotnet test ParkingFeeCalculator.SeleniumTests/ParkingFeeCalculator.SeleniumTests.csproj --configuration $(buildConfiguration) --no-build --logger trx
+    }
+    finally {
+      if ($process -and -not $process.HasExited) {
+        Stop-Process -Id $process.Id -Force
+      }
+    }
+  displayName: 'Run Selenium tests'
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'VSTest'
+    testResultsFiles: '**/*.trx'
+    failTaskOnFailedTests: true
+  condition: succeededOrFailed()
