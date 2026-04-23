@@ -14,7 +14,7 @@ public class ParkingServiceTests
     [TestCase(5, "electric", 15.0)]
     [TestCase(6, "electric", 12.0)]
     [TestCase(9, "electric", 18.0)]
-    public void Calculates_the_normal_parking_fee(int hours, string vehicleType, double expected)
+    public void Calculates_the_normal_parking_fee(int hours, string vehicleType, double expected) // covers normal parking fee case and boundry cases
     {
         var service = MakeService();
 
@@ -24,7 +24,7 @@ public class ParkingServiceTests
     }
 
     [Test]
-    public void Vehicle_type_does_not_have_to_match_the_case_exactly()
+    public void Vehicle_type_does_not_have_to_match_the_case_exactly() // covers if user enters in weird casing
     {
         var service = MakeService();
 
@@ -35,7 +35,7 @@ public class ParkingServiceTests
 
     [TestCase(10, "standard", 27.0)]
     [TestCase(10, "electric", 18.0)]
-    public void Ten_hours_or_more_gets_the_discount(int hours, string vehicleType, double expected)
+    public void Ten_hours_or_more_gets_the_discount(int hours, string vehicleType, double expected) // covers the discount case
     {
         var fakeDiscount = new Mock<IDiscountService>();
         fakeDiscount.Setup(x => x.GetDiscount()).Returns(0.9);
@@ -49,7 +49,8 @@ public class ParkingServiceTests
 
     [TestCase(0)]
     [TestCase(-1)]
-    public void Bad_hours_return_zero(int hours)
+    public void Bad_hours_return_zero(int hours) // covers invalid hours case
+
     {
         var service = MakeService();
 
@@ -61,7 +62,7 @@ public class ParkingServiceTests
     [TestCase("")]
     [TestCase(" ")]
     [TestCase("motorbike")]
-    public void Bad_vehicle_types_return_zero(string vehicleType)
+    public void Bad_vehicle_types_return_zero(string vehicleType) // covers invalid vehicle type case
     {
         var service = MakeService();
 
@@ -71,12 +72,12 @@ public class ParkingServiceTests
     }
 
     [Test]
-    public void Discount_service_is_needed()
+    public void Discount_service_is_needed() // covers use of dependency injection
     {
         Assert.That(() => new ParkingService(null!), Throws.ArgumentNullException);
     }
 
-    private static ParkingService MakeService()
+    private static ParkingService MakeService() // helper method to create service
     {
         var discount = new Mock<IDiscountService>();
         discount.Setup(x => x.GetDiscount()).Returns(0.9);
