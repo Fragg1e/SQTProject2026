@@ -1,6 +1,6 @@
 namespace ParkingFeeCalculator;
 
-public interface IParkingService
+public interface IParkingService 
 {
     double CalculateFee(int hours, string vehicleType);
 }
@@ -14,14 +14,14 @@ public class ParkingService : IParkingService
         _discountService = discountService;
     }
 
-    public double CalculateFee(int hours, string vehicleType)
+    public double CalculateFee(int hours, string vehicleType) //calculates parking fee based on hours and vehicle type
     {
         if (hours <= 0 || string.IsNullOrWhiteSpace(vehicleType))
         {
             return 0.0;
         }
 
-        var normalizedVehicleType = vehicleType.Trim().ToLowerInvariant();
+        var normalizedVehicleType = vehicleType.Trim().ToLowerInvariant(); //normalizes vehicle type input to handle case and whitespace issues
         var fee = normalizedVehicleType switch
         {
             "standard" => CalculateStandardFee(hours),
@@ -37,7 +37,7 @@ public class ParkingService : IParkingService
         return fee * _discountService.GetDiscount();
     }
 
-    private static double CalculateStandardFee(int hours)
+    private static double CalculateStandardFee(int hours) 
     {
         if (hours is >= 1 and <= 3)
         {
