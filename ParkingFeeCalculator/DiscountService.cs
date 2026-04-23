@@ -1,6 +1,6 @@
 namespace ParkingFeeCalculator;
 
-public interface IDiscountService
+public interface IDiscountService //
 {
     double GetDiscount();
 }
