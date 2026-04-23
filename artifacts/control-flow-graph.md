@@ -66,8 +66,8 @@ Using McCabe-style manual analysis, the key independent paths are:
 | Standard 4+ hour branch | Standard test cases for 4 and 9 hours, plus 10-hour discount test |
 | Electric 1-5 hour branch | Electric test cases for 1 and 5 hours |
 | Electric 6+ hour branch | Electric test cases for 6 and 9 hours, plus 10-hour discount test |
-| Discount not applied | Under-threshold standard/electric tests verify `GetDiscount()` is never called |
-| Discount applied | 10-hour standard/electric tests verify `GetDiscount()` is called once |
+| Discount not applied | Under-threshold standard/electric tests check the normal fee before the discount starts |
+| Discount applied | 10-hour standard/electric tests use a mocked discount value and check the discounted fee |
 | Case-insensitive and trimmed input | `CalculateFee_IsCaseInsensitive_AndTrimsWhitespace` |
 | Missing dependency guard | `Constructor_ThrowsArgumentNullException_WhenDiscountServiceIsMissing` |
 

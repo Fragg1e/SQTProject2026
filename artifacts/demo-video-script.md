@@ -41,8 +41,8 @@ The unit tests cover both white-box branches and black-box pricing cases. They c
 
 Point out:
 
-- Strict mocks verify the discount service is not called below 10 hours.
-- Mock setup verifies the discount service is called for 10 or more hours.
+- The normal tests just check the fee that comes back.
+- The discount tests use a simple Moq setup to return `0.9`.
 - Constructor validation is tested by passing a null dependency.
 
 Run:

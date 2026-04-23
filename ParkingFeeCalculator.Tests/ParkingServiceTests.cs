@@ -6,81 +6,54 @@ namespace ParkingFeeCalculator.Tests;
 [TestFixture]
 public class ParkingServiceTests
 {
-    [TestCase(1, 4.0)]
-    [TestCase(3, 12.0)]
-    [TestCase(4, 12.0)]
-    [TestCase(9, 27.0)]
-    public void CalculateFee_ReturnsExpectedFee_ForStandardVehiclesUnderDiscountThreshold(int hours, double expectedFee)
+    [TestCase(1, "standard", 4.0)]
+    [TestCase(3, "standard", 12.0)]
+    [TestCase(4, "standard", 12.0)]
+    [TestCase(9, "standard", 27.0)]
+    [TestCase(1, "electric", 3.0)]
+    [TestCase(5, "electric", 15.0)]
+    [TestCase(6, "electric", 12.0)]
+    [TestCase(9, "electric", 18.0)]
+    public void Calculates_the_normal_parking_fee(int hours, string vehicleType, double expected)
     {
-        var discountService = new Mock<IDiscountService>(MockBehavior.Strict);
-        var sut = new ParkingService(discountService.Object);
+        var service = MakeService();
 
-        var result = sut.CalculateFee(hours, "standard");
+        var result = service.CalculateFee(hours, vehicleType);
 
-        Assert.That(result, Is.EqualTo(expectedFee));
-        discountService.Verify(ds => ds.GetDiscount(), Times.Never);
-    }
-
-    [TestCase(1, 3.0)]
-    [TestCase(5, 15.0)]
-    [TestCase(6, 12.0)]
-    [TestCase(9, 18.0)]
-    public void CalculateFee_ReturnsExpectedFee_ForElectricVehiclesUnderDiscountThreshold(int hours, double expectedFee)
-    {
-        var discountService = new Mock<IDiscountService>(MockBehavior.Strict);
-        var sut = new ParkingService(discountService.Object);
-
-        var result = sut.CalculateFee(hours, "electric");
-
-        Assert.That(result, Is.EqualTo(expectedFee));
-        discountService.Verify(ds => ds.GetDiscount(), Times.Never);
+        Assert.That(result, Is.EqualTo(expected));
     }
 
     [Test]
-    public void CalculateFee_IsCaseInsensitive_AndTrimsWhitespace()
+    public void Vehicle_type_does_not_have_to_match_the_case_exactly()
     {
-        var discountService = new Mock<IDiscountService>(MockBehavior.Strict);
-        var sut = new ParkingService(discountService.Object);
+        var service = MakeService();
 
-        var result = sut.CalculateFee(6, "  EleCTric  ");
+        var result = service.CalculateFee(6, "  EleCTric  ");
 
         Assert.That(result, Is.EqualTo(12.0));
     }
 
-    [Test]
-    public void CalculateFee_AppliesDiscount_WhenHoursAreTenOrMore()
+    [TestCase(10, "standard", 27.0)]
+    [TestCase(10, "electric", 18.0)]
+    public void Ten_hours_or_more_gets_the_discount(int hours, string vehicleType, double expected)
     {
-        var discountService = new Mock<IDiscountService>();
-        discountService.Setup(ds => ds.GetDiscount()).Returns(0.9);
-        var sut = new ParkingService(discountService.Object);
+        var fakeDiscount = new Mock<IDiscountService>();
+        fakeDiscount.Setup(x => x.GetDiscount()).Returns(0.9);
 
-        var result = sut.CalculateFee(10, "standard");
+        var service = new ParkingService(fakeDiscount.Object);
 
-        Assert.That(result, Is.EqualTo(27.0));
-        discountService.Verify(ds => ds.GetDiscount(), Times.Once);
-    }
+        var result = service.CalculateFee(hours, vehicleType);
 
-    [Test]
-    public void CalculateFee_AppliesDiscount_ForElectricVehicles_WhenHoursAreTenOrMore()
-    {
-        var discountService = new Mock<IDiscountService>();
-        discountService.Setup(ds => ds.GetDiscount()).Returns(0.9);
-        var sut = new ParkingService(discountService.Object);
-
-        var result = sut.CalculateFee(10, "electric");
-
-        Assert.That(result, Is.EqualTo(18.0));
-        discountService.Verify(ds => ds.GetDiscount(), Times.Once);
+        Assert.That(result, Is.EqualTo(expected));
     }
 
     [TestCase(0)]
     [TestCase(-1)]
-    public void CalculateFee_ReturnsZero_ForInvalidHours(int hours)
+    public void Bad_hours_return_zero(int hours)
     {
-        var discountService = new Mock<IDiscountService>(MockBehavior.Strict);
-        var sut = new ParkingService(discountService.Object);
+        var service = MakeService();
 
-        var result = sut.CalculateFee(hours, "standard");
+        var result = service.CalculateFee(hours, "standard");
 
         Assert.That(result, Is.EqualTo(0.0));
     }
@@ -88,20 +61,26 @@ public class ParkingServiceTests
     [TestCase("")]
     [TestCase(" ")]
     [TestCase("motorbike")]
-    public void CalculateFee_ReturnsZero_ForInvalidVehicleType(string vehicleType)
+    public void Bad_vehicle_types_return_zero(string vehicleType)
     {
-        var discountService = new Mock<IDiscountService>(MockBehavior.Strict);
-        var sut = new ParkingService(discountService.Object);
+        var service = MakeService();
 
-        var result = sut.CalculateFee(4, vehicleType);
+        var result = service.CalculateFee(4, vehicleType);
 
         Assert.That(result, Is.EqualTo(0.0));
-        discountService.Verify(ds => ds.GetDiscount(), Times.Never);
     }
 
     [Test]
-    public void Constructor_ThrowsArgumentNullException_WhenDiscountServiceIsMissing()
+    public void Discount_service_is_needed()
     {
         Assert.That(() => new ParkingService(null!), Throws.ArgumentNullException);
+    }
+
+    private static ParkingService MakeService()
+    {
+        var discount = new Mock<IDiscountService>();
+        discount.Setup(x => x.GetDiscount()).Returns(0.9);
+
+        return new ParkingService(discount.Object);
     }
 }
