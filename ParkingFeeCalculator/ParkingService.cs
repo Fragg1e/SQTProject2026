@@ -11,7 +11,7 @@ public class ParkingService : IParkingService
 
     public ParkingService(IDiscountService discountService)
     {
-        _discountService = discountService;
+        _discountService = discountService ?? throw new ArgumentNullException(nameof(discountService));
     }
 
     public double CalculateFee(int hours, string vehicleType) //calculates parking fee based on hours and vehicle type
