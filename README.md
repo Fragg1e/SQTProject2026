@@ -9,13 +9,13 @@ Software Quality + Testing assignment submission for the 2026 parking fee calcul
 - `ParkingFeeCalculator/`  
   Refactored system under test containing `ParkingService` and the injectable `IDiscountService`.
 - `ParkingFeeCalculator.Tests/`  
-  NUnit + Moq unit tests for white-box and black-box coverage.
+  NUnit + Moq unit tests for the main logic.
 - `ParkingFeeCalculator.Web/`  
-  Razor Pages front end for manual testing and Selenium automation.
+  Simple Razor Pages front end for manual testing and Selenium automation.
 - `ParkingFeeCalculator.SeleniumTests/`  
-  Selenium WebDriver NUnit tests for UI-level black-box checks.
+  Selenium WebDriver NUnit tests for UI-level checks.
 - `artifacts/`  
-  Assignment write-up files including the control flow graph, EP/BVA tables, and metrics report.
+  Assignment write-up files and supporting documents.
 
 ## Build And Run
 
@@ -39,10 +39,10 @@ dotnet run --project .\ParkingFeeCalculator.Web\ParkingFeeCalculator.Web.csproj
 
 ### Unit Tests
 
-The unit tests validate:
+The unit tests check:
 
-- branch coverage across standard and electric pricing rules
-- invalid input handling
+- standard and electric pricing rules
+- invalid input
 - discount application for 10+ hours
 - constructor dependency validation
 - case-insensitive vehicle type handling
@@ -55,7 +55,7 @@ Notes:
 
 - a desktop browser must be installed locally for the UI tests to run
 - the tests start the Razor Pages app automatically
-- if Selenium tests are run on Azure DevOps, use a Windows agent with a browser available
+- Selenium may also need a local browser driver setup depending on the machine
 
 ## Assignment Deliverables Included
 
@@ -63,7 +63,6 @@ Notes:
 - automated NUnit + Moq tests
 - web front end
 - Selenium test project
-- Azure DevOps pipeline YAML
 - control flow graph
 - EP/BVA analysis
 - metrics report and interpretation
@@ -73,3 +72,4 @@ Notes:
 - record the short demo video
 - upload the full solution to Moodle
 - if needed, install a browser locally before running Selenium from Visual Studio
+- add contribution details if required by the brief
