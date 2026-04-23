@@ -1,162 +1,55 @@
-:root {
-  --bg: #f4efe7;
-  --surface: rgba(255, 255, 255, 0.78);
-  --surface-strong: #fffdf9;
-  --ink: #1f2a30;
-  --muted: #5c6c75;
-  --accent: #0f766e;
-  --accent-dark: #115e59;
-  --line: rgba(31, 42, 48, 0.12);
-  --shadow: 0 24px 60px rgba(31, 42, 48, 0.12);
-}
-
 html {
   font-size: 16px;
   min-height: 100%;
 }
 
 body {
-  min-height: 100%;
   margin: 0;
-  color: var(--ink);
-  background:
-    radial-gradient(circle at top left, rgba(15, 118, 110, 0.18), transparent 30%),
-    radial-gradient(circle at top right, rgba(217, 119, 6, 0.12), transparent 24%),
-    linear-gradient(180deg, #fcfaf6 0%, var(--bg) 100%);
+  background: #f5f5f5;
+  color: #222;
 }
 
-.btn:focus,
-.btn:active:focus,
-.btn-link.nav-link:focus,
-.form-control:focus,
-.form-check-input:focus {
-  box-shadow: 0 0 0 0.18rem rgba(15, 118, 110, 0.18);
+.container {
+  max-width: 760px;
 }
 
-.hero {
-  display: grid;
-  gap: 2rem;
-  padding: 3rem 0 1.5rem;
+.page-card {
+  margin: 2rem 0;
+  padding: 2rem;
+  background: #fff;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
 }
 
-.hero__copy h1 {
-  font-size: clamp(2.5rem, 5vw, 4.6rem);
-  line-height: 0.95;
-  margin-bottom: 1rem;
-  letter-spacing: -0.04em;
-}
-
-.eyebrow {
-  display: inline-block;
+h1 {
   margin-bottom: 0.75rem;
-  padding: 0.35rem 0.75rem;
-  border-radius: 999px;
-  background: rgba(15, 118, 110, 0.12);
-  color: var(--accent-dark);
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-size: 2rem;
 }
 
-.lede {
-  max-width: 50rem;
-  color: var(--muted);
-  font-size: 1.05rem;
+.page-note {
+  color: #555;
+  margin-bottom: 1.5rem;
 }
 
-.calculator-card,
-.rule-card {
-  border: 1px solid var(--line);
-  border-radius: 1.5rem;
-  background: var(--surface);
-  box-shadow: var(--shadow);
-  backdrop-filter: blur(10px);
+.simple-form {
+  margin-bottom: 1.5rem;
 }
 
-.calculator-card {
-  padding: 1.5rem;
+.result-box,
+.rules-box {
+  margin-top: 1.25rem;
+  padding: 1rem;
+  background: #fafafa;
+  border: 1px solid #dcdcdc;
+  border-radius: 6px;
 }
 
-.calculator-form {
-  display: grid;
-  gap: 1rem;
+.rules-box h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
 }
 
-.form-row {
-  display: grid;
-  gap: 0.4rem;
-}
-
-.form-control {
-  min-height: 3rem;
-  border-radius: 0.9rem;
-  border: 1px solid rgba(31, 42, 48, 0.18);
-}
-
-.calculate-button {
-  min-height: 3.1rem;
-  border: 0;
-  border-radius: 999px;
-  background: linear-gradient(135deg, var(--accent) 0%, #0f9f8f 100%);
-  color: white;
-  font-weight: 700;
-  transition: transform 180ms ease, box-shadow 180ms ease;
-}
-
-.calculate-button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 16px 30px rgba(15, 118, 110, 0.25);
-}
-
-.result-panel {
-  margin-top: 1.4rem;
-  padding: 1rem 1.1rem;
-  border-radius: 1rem;
-  background: var(--surface-strong);
-  border: 1px solid rgba(15, 118, 110, 0.15);
-}
-
-.result-label {
-  margin: 0;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.78rem;
-}
-
-.result-value {
-  margin: 0.3rem 0 0;
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
-  font-weight: 800;
-}
-
-.rules-grid {
-  display: grid;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-.rule-card {
-  padding: 1.25rem;
-}
-
-.rule-card h2 {
-  font-size: 1.15rem;
-  margin-bottom: 0.8rem;
-}
-
-.rule-card p {
-  margin: 0.35rem 0;
-  color: var(--muted);
-}
-
-@media (min-width: 992px) {
-  .hero {
-    grid-template-columns: minmax(0, 1.2fr) minmax(22rem, 0.8fr);
-    align-items: start;
-  }
-
-  .rules-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
+.rules-box ul {
+  margin-bottom: 0;
+  padding-left: 1.2rem;
 }
