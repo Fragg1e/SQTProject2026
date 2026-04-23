@@ -5,7 +5,7 @@ Student 1: Fraser Woodward - S00271002
 - Wrote NUnit unit tests
 - Helped with EP/BVA tables
 
-Student 2: Alex Fagan / Student Number
+Student 2: Alex Fagan / S00267631
 - Built Razor Pages front end
 - Wrote Selenium tests
 - Set up Program.cs
