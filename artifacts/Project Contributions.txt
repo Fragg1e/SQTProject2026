@@ -3,7 +3,7 @@ Project Contributions
 Student 1: Fraser Woodward - S00271002
 - Refactored ParkingService and added dependency injection
 - Wrote NUnit unit tests
-- Helped with EP/BVA tables
+- Recorded demo video
 
 Student 2: Alex Fagan / S00267631
 - Built Razor Pages front end
@@ -12,5 +12,5 @@ Student 2: Alex Fagan / S00267631
 
 Shared work
 - Reviewed results together		
-- Prepared final submission files
-- Recorded demo video
+- Prepared final submission files and documents
+- Helped with EP/BVA tables
